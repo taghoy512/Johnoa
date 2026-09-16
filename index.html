@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mathematics in the Modern World | John Noah Taghoy</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --primary: #0369a1;
+      --primary-dark: #0c4a6e;
+      --accent: #ea580c;
+      --accent-soft: #fff7ed;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --green: #059669;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ===== HOMEPAGE ===== */
+    .homepage { min-height: 100vh; display: flex; flex-direction: column; }
+
+    .hero {
+      background: linear-gradient(160deg, #0c4a6e 0%, #0369a1 40%, #0ea5e9 100%);
+      color: white;
+      padding: 3rem 1.5rem 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border: 40px solid rgba(255,255,255,0.06);
+      border-radius: 50%;
+      top: -150px; right: -150px;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border: 30px solid rgba(255,255,255,0.05);
+      border-radius: 50%;
+      bottom: -100px; left: -80px;
+    }
+
+    .hero-inner { position: relative; z-index: 2; }
+
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.5px;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      margin-bottom: 1.4rem;
+    }
+
+    .dev-pill {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.45rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .grid-wrap {
+      max-width: 920px;
+      margin: -2.5rem auto 3rem;
+      padding: 0 1.2rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 560px) {
+      .topic-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (min-width: 850px) {
+      .topic-grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
+      .hero h1 { font-size: 2.4rem; }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1.4rem 1.3rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-align: left;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(3, 105, 161, 0.15);
+      border-color: #7dd3fc;
+    }
+
+    .card .icon {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, #0369a1, #0ea5e9);
+      color: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      margin-bottom: 0.3rem;
+    }
+
+    .card p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ===== LESSON PAGES ===== */
+    .lesson {
+      display: none;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 1.5rem 1.2rem 4rem;
+    }
+
+    .lesson.show { display: block; }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: all 0.2s;
+    }
+
+    .back:hover {
+      background: #f0f9ff;
+      border-color: #7dd3fc;
+    }
+
+    .lesson-top {
+      margin-bottom: 1.8rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #e0f2fe;
+    }
+
+    .lesson-top h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.25rem;
+    }
+
+    .lesson-top span {
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      color: var(--primary-dark);
+      margin: 1.5rem 0 0.55rem;
+      padding-left: 0.7rem;
+      border-left: 4px solid var(--primary);
+    }
+
+    h4 {
+      font-size: 1.02rem;
+      color: var(--accent);
+      margin: 1.1rem 0 0.4rem;
+    }
+
+    p { margin-bottom: 0.8rem; color: #334155; }
+
+    ul, ol { margin: 0.5rem 0 1rem 1.4rem; color: #334155; }
+    li { margin-bottom: 0.35rem; }
+
+    .ex {
+      background: #e0f2fe;
+      border-left: 4px solid var(--primary);
+      padding: 0.85rem 1rem;
+      margin: 0.85rem 0;
+      border-radius: 0 10px 10px 0;
+    }
+
+    .ex strong { color: var(--primary-dark); }
+
+    .tip {
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      padding: 0.85rem 1rem;
+      margin: 0.85rem 0;
+      border-radius: 0 10px 10px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.92rem;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.75rem;
+      text-align: left;
+    }
+
+    th {
+      background: var(--primary);
+      color: white;
+    }
+
+    tr:nth-child(even) { background: #f8fafc; }
+
+    .math { font-family: 'Times New Roman', serif; font-size: 1.1em; }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: auto;
+    }
+
+    footer .dev-name {
+      font-weight: 700;
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HOMEPAGE -->
+  <div class="homepage" id="home">
+    <div class="hero">
+      <div class="hero-inner">
+        <h1>Mathematics in the Modern World</h1>
+        <p class="sub">Midterm Lessons</p>
+        <div class="dev-pill">Developed by John Noah Taghoy</div>
+      </div>
+    </div>
+
+    <div class="grid-wrap">
+      <div class="topic-grid">
+        <div class="card" onclick="go(1)">
+          <div class="icon">1</div>
+          <h3>Language & Symbols</h3>
+          <p>Symbols and word meanings</p>
+        </div>
+        <div class="card" onclick="go(2)">
+          <div class="icon">2</div>
+          <h3>Expressions</h3>
+          <p>Words to math expressions</p>
+        </div>
+        <div class="card" onclick="go(3)">
+          <div class="icon">3</div>
+          <h3>Sets</h3>
+          <p>Definition & number sets</p>
+        </div>
+        <div class="card" onclick="go(4)">
+          <div class="icon">4</div>
+          <h3>Set-Builder</h3>
+          <p>Notation examples</p>
+        </div>
+        <div class="card" onclick="go(5)">
+          <div class="icon">5</div>
+          <h3>Types of Sets</h3>
+          <p>Empty, finite, subset...</p>
+        </div>
+        <div class="card" onclick="go(6)">
+          <div class="icon">6</div>
+          <h3>Operations</h3>
+          <p>Union & intersection</p>
+        </div>
+        <div class="card" onclick="go(7)">
+          <div class="icon">7</div>
+          <h3>Venn Diagram</h3>
+          <p>Visual set relations</p>
+        </div>
+        <div class="card" onclick="go(8)">
+          <div class="icon">8</div>
+          <h3>Reasoning</h3>
+          <p>Inductive & deductive</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Mathematics in the Modern World • Midterm Lessons</p>
+      <p class="dev-name">Developed by John Noah Taghoy</p>
+    </footer>
+  </div>
+
+  <!-- LESSON 1 -->
+  <div class="lesson" id="l1">
+    <button class="back" onclick="home()">← Back to Home</button>
+    <div class="lesson-top">
+      <h2>Mathematical Language & Symbols</h2>
+      <span>Topic 1</span>
+    </div>
+
+    <h3>Common Symbols</h3>
+    <table>
+      <thead><tr><th>Symbol</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="math">+ − ±</td><td>Plus, Minus, Plus-minus</td></tr>
+        <tr><td class="math">× ÷ ⋅</td><td>Multiply, Divide, Dot</td></tr>
+        <tr><td class="math">= ≠ &gt; &lt; ≥ ≤</td><td>Equal, Not equal, Comparisons</td></tr>
+        <tr><td class="math">x y z</td><td>Variables</td></tr>
+        <tr><td class="math">√ ∛</td><td>Square root, Cube root</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Verbal Phrases</h3>
+    <h4>Addition</h4>
+    <ul><li>Sum</li><li>Plus / Added by</li><li>More than</li><li>Increased by</li></ul>
+    <h4>Subtraction</h4>
+    <ul><li>Minus</li><li>Decreased by</li><li>Less than</li><li>Difference</li></ul>
+    <h4>Multiplication</h4>
+    <ul><li>Times</li><li>Product of</li><li>Multiplied by</li></ul>
+    <h4>Division</h4>
+    <ul><li>Divided by</li><li>Quotient</li><li>Ratio</li></ul>
+  </div>
+
+  <!-- LESSON 2 -->
+  <div class="lesson" id="l2">
+    <button class="back" onclick="home()">← Back to Home</button>
+    <div class="lesson-top">
+      <h2>Mathematical Expression</h2>
+      <span>Topic 2</span>
+    </div>
+
+    <h3>Translating Phrases</h3>
+    <div class="ex"><strong>1.</strong> Sum of a number and 10 → <span class="math">x + 10</span></div>
+    <div class="ex"><strong>2.</strong> Difference of a number and 5 → <span class="math">x − 5</span></div>
+    <div class="ex"><strong>3.</strong> Product of 10 and a number → <span class="math">10x</span></div>
+    <div class="ex"><strong>4.</strong> Quotient of a number and 50 → <span class="math">x / 50</span></div>
+    <div class="ex"><strong>5.</strong> One-fifth of a number → <span class="math">(1/5)x</span></div>
+    <div class="ex"><strong>6.</strong> Three-fourths of 500 → <span class="math">(3/4)×500</span></div>
+    <div class="ex"><strong>7.</strong> Sum of two numbers less 11 → <span class="math">(x+y)−11</span></div>
+    <div class="ex"><strong>8.</strong> Double sales less taxes → <span class="math">2x − y</span></div>
+    <div class="ex"><strong>9.</strong> Difference of gross sales less taxes → <span class="math">x − y</span></div>
+    <div class="ex"><strong>10.</strong> A number subtracted from 8 → <span class="math">8 − x</span></div>
+
+    <h3>Sample Problems</h3>
+    <div class="ex">Sum = 45, difference = 11 → x = 17, y = 28</div>
+    <div class="ex">Average of quizzes = 85, first is 10 higher → 80 and 90</div>
+    <div class="ex">3x + 7 = 34 → x = 9</div>
+    <div class="ex">Two grades total 180, one has 14 more → 83 and 97</div>
+  </div>
+
+  <!-- LESSON 3 -->
+  <div class="lesson" id="l3">
+    <button class="back" onclick="home()">← Back to Home</button>
+    <div class="lesson-top">
+      <h2>Sets</h2>
+      <span>Topic 3</span>
+    </div>
+
+    <h3>Definition</h3>
+    <p>A set is a group or collection of objects. The objects are called <strong>elements</strong>.</p>
+    <div class="ex">Letters in ALEX EALA → A = {A, E, L, X}</div>
+
+    <h3>Fundamental Number Sets</h3>
+    <div class="ex"><strong>Natural Numbers</strong><br>ℕ = {1, 2, 3, 4, 5, …}</div>
+    <div class="ex"><strong>Whole Numbers</strong><br>𝕎 = {0, 1, 2, 3, 4, …}</div>
+    <div class="ex"><strong>Integers</strong><br>ℤ = {…, −2, −1, 0, 1, 2, …}</div>
+    <div class="ex"><strong>Rational</strong> – terminating & repeating decimals</div>
+    <div class="ex"><strong>Irrational</strong> – non-terminating & non-repeating</div>
+    <div class="ex"><strong>Real Numbers</strong> – all rational + irrational</div>
+  </div>
+
+  <!-- LESSON 4 -->
+  <div class="lesson" id="l4">
+    <button class="back" onclick="home()">← Back to Home</button>
+    <div class="lesson-top">
+      <h2>Set-Builder Notation</h2>
+      <span>Topic 4</span>
+    </div>
+
+    <h3>Form</h3>
+    <p style="text-align:center; font-size:1.2rem; margin:1rem 0;">
+      <span class="math">{ x | P(x) }</span> &nbsp; or &nbsp; <span class="math">{ x : P(x) }</span>
+    </p>
+    <p>“The set of all x such that P(x) is true.”</p>
+
+    <h3>Examples</h3>
+    <div class="ex">
+      Natural numbers &gt; 10 and &lt; 15<br>
+      <span class="math">{ x ∈ ℕ | 10 &lt; x &lt; 15 }</span> = {11, 12, 13, 14}
+    </div>
+    <div class="ex">
+      Counting numbers &gt; 5 and ≤ 10<br>
+      <span class="math">{ x ∈ ℕ | 5 &lt; x ≤ 10 }</span> = {6, 7, 8, 9, 10}
+    </div>
+    <div class="tip">Very useful for large or infinite sets.</div>
+  </div>
+
+  <!-- LESSON 5 -->
+  <div class="lesson" id="l5">
+    <button class="back" onclick="home()">← Back to Home</button>
+    <div class="lesson-top">
+      <h2>Different Types of Sets</h2>
+      <span>Topic 5</span>
+    </div>
+
+    <div class="ex"><strong>Well-Defined</strong> – elements can be clearly identified</div>
+    <div class="ex"><strong>Empty / Null</strong> – no elements (∅)</div>
+    <div class="ex"><strong>Finite</strong> – limited elements (e.g. {1,2,3,4})</div>
+    <div class="ex"><strong>Infinite</strong> – unending (e.g. whole numbers)</div>
+    <div class="ex"><strong>Equal</strong> – exactly the same elements</div>
+    <div class="ex"><strong>Equivalent</strong> – same number of elements</div>
+    <div class="ex"><strong>Universal (U)</strong> – all elements being considered</div>
+    <div class="ex"><strong>Complement (A′)</strong> – elements in U but not in A</div>
+    <div class="ex"><strong>Proper Subset (⊂)</strong> – A is inside B and A ≠ B</div>
+    <div class="ex"><strong>Improper Subset (⊆)</strong> – A can equal B</div>
+  </div>
+
+  <!-- LESSON 6 -->
+  <div class="lesson" id="l6">
+    <button class="back" onclick="home()">← Back to Home</button>
+    <div class="lesson-top">
+      <h2>Set Operations</h2>
+      <span>Topic 6</span>
+    </div>
+
+    <h3>Intersection (A ∩ B)</h3>
+    <p>Common elements only.</p>
+    <div class="ex">A = {1,2,3,4}<br>B = {2,3,5,6,7}<br>A ∩ B = {2, 3}</div>
+
+    <h3>Union (A ∪ B)</h3>
+    <p>All elements from both sets.</p>
+    <div class="ex">A = {1,2,3,4}<br>B = {3,4,5}<br>A ∪ B = {1, 2, 3, 4, 5}</div>
+
+    <h3>Disjoint</h3>
+    <p>No common elements (A ∩ B = ∅).</p>
+  </div>
+
+  <!-- LESSON 7 -->
+  <div class="lesson" id="l7">
+    <button class="back" onclick="home()">← Back to Home</button>
+    <div class="lesson-top">
+      <h2>Venn Diagram</h2>
+      <span>Topic 7</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>A diagram that uses circles inside a rectangle (universal set) to show relationships between sets.</p>
+
+    <h3>Key Regions</h3>
+    <ul>
+      <li><strong>A ∩ B</strong> – overlapping part only</li>
+      <li><strong>A ∪ B</strong> – everything in A or B</li>
+      <li><strong>A′</strong> – outside of A</li>
+      <li><strong>B ∪ C</strong> – everything in B or C</li>
+      <li><strong>B′ ∩ C</strong> – part of C outside B</li>
+    </ul>
+    <div class="tip">Draw the rectangle (U) first, then the circles.</div>
+  </div>
+
+  <!-- LESSON 8 -->
+  <div class="lesson" id="l8">
+    <button class="back" onclick="home()">← Back to Home</button>
+    <div class="lesson-top">
+      <h2>Reasoning</h2>
+      <span>Topic 8</span>
+    </div>
+
+    <h3>Deductive Reasoning</h3>
+    <p><strong>General → Specific</strong> (conclusion is certain if premises are true)</p>
+    <div class="ex">
+      All humans are mortal.<br>
+      Alexis is a human.<br>
+      ∴ Alexis is mortal.
+    </div>
+    <div class="ex">
+      All even numbers are divisible by 2.<br>
+      22 is even.<br>
+      ∴ 22 is divisible by 2.
+    </div>
+
+    <h3>Inductive Reasoning</h3>
+    <p><strong>Specific → General</strong> (conclusion is probable)</p>
+    <div class="ex">
+      2+1=3, 4+1=5, 6+1=7 (all odd)<br>
+      Conclusion: Even number + 1 is always odd.
+    </div>
+
+    <h3>Quick Comparison</h3>
+    <table>
+      <thead><tr><th>Deductive</th><th>Inductive</th></tr></thead>
+      <tbody>
+        <tr><td>General → Specific</td><td>Specific → General</td></tr>
+        <tr><td>Certain conclusion</td><td>Probable conclusion</td></tr>
+        <tr><td>Uses rules</td><td>Uses patterns</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function go(n) {
+      document.getElementById('home').style.display = 'none';
+      document.querySelectorAll('.lesson').forEach(el => el.classList.remove('show'));
+      document.getElementById('l' + n).classList.add('show');
+      window.scrollTo(0,0);
+    }
+    function home() {
+      document.querySelectorAll('.lesson').forEach(el => el.classList.remove('show'));
+      document.getElementById('home').style.display = 'flex';
+      window.scrollTo(0,0);
+    }
+  </script>
+</body>
+</html>
